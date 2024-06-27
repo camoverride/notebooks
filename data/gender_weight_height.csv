@@ -1,0 +1,19 @@
+import pandas as pd
+import numpy as np
+
+path_to_data = "dataset.csv"
+df_1 = pd.read_csv(path_to_data)
+
+
+noise = np.random.normal(0, 20, 5000)
+noise
+
+f_df = df_1[df_1["Gender"] == "Female"][["Gender", "Height", "Weight"]]
+f_df["Weight"] += noise
+m_df = df_1[df_1["Gender"] == "Male"][["Gender", "Height", "Weight"]]
+df_2 = pd.concat([m_df, f_df])
+
+# ax = df_2[df_2["Gender"] == "Female"]["Weight"].plot.hist(bins=50, alpha=0.5)
+# ax = df_2[df_2["Gender"] == "Male"]["Weight"].plot.hist(bins=50, alpha=0.5)
+
+df_2.to_csv("noise_gender_data.csv")
